@@ -1,0 +1,22 @@
+# Secrets — NEVER commit these
+secrets/
+.env
+.env.local
+*.key
+*.pem
+*.p12
+# Google service account keys
+service-account*.json
+*-service-account.json
+sa.json
+*.keystore
+*.jks
+
+# Dependencies / build
+node_modules/
+
+# Editor / OS / tooling
+.claude/
+.DS_Store
+*.log
+npm-debug.log*

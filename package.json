@@ -1,0 +1,60 @@
+{
+  "name": "googleplay-api-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Google Play (Android Publisher API) — upload builds (AAB/APK), manage tracks, releases and staged rollouts, edit store listings and screenshots, manage in-app products and subscriptions, read and reply to reviews, with dry-run and safe-mode guardrails. Works with any MCP client (Claude, Codex, Cursor, Windsurf, VS Code, Zed, Gemini CLI, and more).",
+  "type": "module",
+  "bin": {
+    "googleplay-api-mcp": "src/index.js"
+  },
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "docs",
+    ".env.example"
+  ],
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "google-play",
+    "googleplay",
+    "play-console",
+    "android-publisher",
+    "android",
+    "aab",
+    "apk",
+    "staged-rollout",
+    "aso",
+    "claude",
+    "codex",
+    "cursor",
+    "screenshots",
+    "metadata",
+    "subscriptions",
+    "in-app-products",
+    "reviews"
+  ],
+  "license": "MIT",
+  "author": "Sviatoslav Fil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fil-technology/googleplay-api-mcp.git"
+  },
+  "homepage": "https://github.com/fil-technology/googleplay-api-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/fil-technology/googleplay-api-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "jose": "^5.9.6"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

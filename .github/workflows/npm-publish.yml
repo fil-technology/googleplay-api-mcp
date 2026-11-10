@@ -1,0 +1,57 @@
+name: Publish to npm
+
+# Publishes to npm when you push a version tag like v1.2.3.
+# (Only the tag triggers a publish — creating a GitHub Release for the same tag
+# does NOT re-trigger it, so there's no double-publish. Publishing on *every
+# commit* is intentionally avoided — npm rejects re-publishing a version.)
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # OIDC trusted publishing + provenance (no NPM_TOKEN needed)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      # OIDC trusted publishing needs npm >= 11.5.1; Node 20 ships npm 10.x.
+      # Pin to npm 11 (npm 12 requires Node >= 22).
+      - name: Upgrade npm for OIDC trusted publishing
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Guard — tag version must match package.json
+        run: |
+          REF="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          if [ "$REF" != "$PKG" ]; then
+            echo "::error::Tag ($REF) does not match package.json version ($PKG)"
+            exit 1
+          fi
+          echo "PKG_VERSION=$PKG" >> "$GITHUB_ENV"
+
+      - name: Skip if this version is already on npm
+        run: |
+          if npm view "googleplay-api-mcp@${PKG_VERSION}" version >/dev/null 2>&1; then
+            echo "googleplay-api-mcp@${PKG_VERSION} is already published — skipping."
+            echo "ALREADY_PUBLISHED=true" >> "$GITHUB_ENV"
+          else
+            echo "ALREADY_PUBLISHED=false" >> "$GITHUB_ENV"
+          fi
+
+      # Authentication is via OIDC trusted publishing (configured on npmjs.com
+      # for this repo + workflow), so no NODE_AUTH_TOKEN is required.
+      - name: Publish
+        if: env.ALREADY_PUBLISHED == 'false'
+        run: npm publish --provenance --access public
