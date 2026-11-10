@@ -13,6 +13,7 @@
     "LICENSE",
     "CHANGELOG.md",
     "docs",
+    "!docs/images",
     ".env.example"
   ],
   "scripts": {

@@ -22,12 +22,41 @@ access to your apps in **Play Console**, and point the server at its key file.
    API** → **Enable**.
    - Optional, for the `list_apps` / `reporting_*` tools: also enable **Google
      Play Developer Reporting API**.
-3. **IAM & Admin → Service Accounts → Create service account**. Give it a name
-   such as `play-mcp`. No Cloud roles are needed — skip the optional steps.
-4. Open the new service account → **Keys → Add key → Create new key → JSON**.
-   A `.json` file downloads. This is the only credential the server needs.
-5. Copy the service account's email address
-   (`play-mcp@your-project.iam.gserviceaccount.com`) — you need it next.
+3. **IAM & Admin → Service Accounts → Create service account**. Fill in only
+   the first field:
+   - **Service account name:** anything, e.g. `googleplay-mcp`.
+   - **Service account ID:** fills itself in from the name — leave it.
+   - **Description:** optional.
+
+   ![Create service account form](images/service-account-1-details.png)
+
+4. Click **Create and continue**. The **Permissions** step that opens is for
+   Google Cloud roles, and the service account needs none — its access comes
+   from Play Console (section 3). Leave **Select a role** empty, skip
+   **Principals with access** too, and click **Done**.
+
+   ![Permissions step left empty](images/service-account-2-skip-permissions.png)
+
+5. In the service accounts list, click the account you just created and open
+   the **Keys** tab. Click **Add key → Create new key**, choose **JSON**, and
+   click **Create**.
+
+   ![Keys tab with the Add key button](images/service-account-3-keys-tab.png)
+
+6. A `.json` file downloads straight away and the console confirms it. This
+   file is the only credential the server needs, and Google will not show it
+   again — if you lose it, delete the key here and create a new one.
+
+   ![Private key saved confirmation](images/service-account-4-key-downloaded.png)
+
+7. Copy the service account's email address from the **Details** tab
+   (`googleplay-mcp@your-project-id.iam.gserviceaccount.com`) — you need it
+   next.
+
+> If **Create new key** is greyed out or fails with "Service account key
+> creation is disabled", your Google Cloud organisation enforces the
+> `iam.disableServiceAccountKeyCreation` policy. An organisation admin has to
+> lift it for this project under **IAM & Admin → Organization Policies**.
 
 ## 3. Grant access in Play Console
 
