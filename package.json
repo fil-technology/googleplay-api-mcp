@@ -1,6 +1,6 @@
 {
   "name": "googleplay-api-mcp",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.0",
   "description": "MCP server for Google Play (Android Publisher API) — upload builds (AAB/APK), manage tracks, releases and staged rollouts, edit store listings and screenshots, manage in-app products and subscriptions, read and reply to reviews, with dry-run and safe-mode guardrails. Works with any MCP client (Claude, Codex, Cursor, Windsurf, VS Code, Zed, Gemini CLI, and more).",
   "type": "module",
   "bin": {

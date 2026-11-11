@@ -4,7 +4,19 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
-## [0.1.0] - 2026-11-10
+## [0.1.0-beta.0] - 2026-11-11
+
+Pre-release of 0.1.0, published under the `beta` dist-tag
+(`npx -y googleplay-api-mcp@beta`). Contents are as described under 0.1.0
+below. Authentication has been confirmed against the live API; the app-level
+tools have not.
+
+### Changed
+- `SETUP.md` walks through creating the service account key with screenshots.
+- The publish workflow ships pre-release versions under their own dist-tag
+  instead of `latest`.
+
+## [0.1.0] - Unreleased
 
 Initial release: an MCP server for the Google Play Android Publisher API (v3),
 built as a sibling of `appstore-api-mcp` with the same tool shape, dry-run

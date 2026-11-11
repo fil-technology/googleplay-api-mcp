@@ -52,6 +52,14 @@ jobs:
 
       # Authentication is via OIDC trusted publishing (configured on npmjs.com
       # for this repo + workflow), so no NODE_AUTH_TOKEN is required.
+      # A pre-release (1.2.3-beta.0) goes out under its own dist-tag ("beta") so
+      # it never becomes "latest"; npm 11 refuses to publish one without --tag.
       - name: Publish
         if: env.ALREADY_PUBLISHED == 'false'
-        run: npm publish --provenance --access public
+        run: |
+          case "$PKG_VERSION" in
+            *-*) DIST_TAG="$(echo "${PKG_VERSION#*-}" | cut -d. -f1)" ;;
+            *)   DIST_TAG="latest" ;;
+          esac
+          echo "Publishing googleplay-api-mcp@${PKG_VERSION} with dist-tag ${DIST_TAG}"
+          npm publish --provenance --access public --tag "$DIST_TAG"
